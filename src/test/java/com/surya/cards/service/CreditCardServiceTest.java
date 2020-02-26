@@ -64,7 +64,7 @@ public class CreditCardServiceTest {
 		creditCard1.setCardId(1);
 		creditCard1.setCardNumber("123456678890");
 		creditCard1.setCardHolderName("NK Das");
-		creditCard1.setBalance(1876.98);
+		creditCard1.setBalance(0.0);
 		creditCard1.setUpperLimit(100000.00);
 		
 		when(creditCardRepository.save(creditCard1)).thenReturn(creditCard1);

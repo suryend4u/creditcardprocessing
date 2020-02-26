@@ -27,6 +27,9 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 	@Value("${app.validation.failed}")
 	private String validationFailed;
 	
+	@Value("${app.newcard.balance.notzero}")
+	private String newBalanceNotZero;
+	
 	@ExceptionHandler(Exception.class)
 	public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
 		List<String> details = new ArrayList<>();
@@ -40,6 +43,14 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 		List<String> details = new ArrayList<>();
 		details.add(ex.getLocalizedMessage());
 		ErrorResponse error = new ErrorResponse(invalidCardNumber, details);
+		return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(NewBalanceNotZeroException.class)
+	public final ResponseEntity<Object> handleUserNotFoundException(NewBalanceNotZeroException ex, WebRequest request) {
+		List<String> details = new ArrayList<>();
+		details.add(ex.getLocalizedMessage());
+		ErrorResponse error = new ErrorResponse(newBalanceNotZero, details);
 		return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
 	}
 

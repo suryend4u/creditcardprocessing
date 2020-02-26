@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.surya.cards.exception.InvalidCreditCardException;
+import com.surya.cards.exception.NewBalanceNotZeroException;
 import com.surya.cards.model.CreditCard;
 import com.surya.cards.service.CreditCardService;
 import com.surya.cards.validation.CreditCardUtilValidator;
@@ -27,9 +28,17 @@ public class CreditCardProcessingController {
 	
 	@Value("${app.cardsave.successful}")
 	private String cardsavedMsg;
+	
+	@Value("${app.newcard.balance.notzero}")
+	private String newBalanceNotZero;
+	
 
 	@PostMapping("/cards")
 	public ResponseEntity<String> addCreditCard(@RequestBody CreditCard card) {
+		
+		if(card.getBalance()>0.0) {
+			throw new NewBalanceNotZeroException(newBalanceNotZero);
+		}
 
 		if(CreditCardUtilValidator.isvalidCreditCardNumber(card.getCardNumber()))
 		{
