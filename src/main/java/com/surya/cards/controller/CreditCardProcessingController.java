@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.surya.cards.model.CreditCard;
 import com.surya.cards.service.CreditCardService;
+import com.surya.cards.validation.CreditCardUtilValidator;
 
 @RestController
 public class CreditCardProcessingController {
@@ -22,8 +23,11 @@ public class CreditCardProcessingController {
 	@PostMapping("/cards")
 	public ResponseEntity<CreditCard> addCreditCard(@RequestBody CreditCard card) {
 
-		CreditCard savedCard = creditCardService.addCreditCard(card);
-		return new ResponseEntity<CreditCard>(savedCard, HttpStatus.CREATED);
+		if (CreditCardUtilValidator.isvalidCreditCardNumber(card.getCardNumber())) {
+			CreditCard savedCard = creditCardService.addCreditCard(card);
+			return new ResponseEntity<CreditCard>(savedCard, HttpStatus.CREATED);
+		}
+		return new ResponseEntity<CreditCard>(card, HttpStatus.BAD_REQUEST);
 	}
 
 	@GetMapping("/cards")
