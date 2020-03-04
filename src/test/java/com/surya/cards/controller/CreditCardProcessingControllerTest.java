@@ -66,5 +66,18 @@ public class CreditCardProcessingControllerTest {
 		
 		creditCardProcessingController.addCreditCard(creditCard1);		
 	}
+	
+	@Test(expected = Exception.class)
+	public void genericErrorTest()
+	{
+		CreditCard creditCard1 = new CreditCard();
+		creditCard1.setCardId(1);
+		creditCard1.setCardNumber("4567123487651234");
+		creditCard1.setCardHolderName("SK Dutta");
+		creditCard1.setBalance(0.0);
+		creditCard1.setUpperLimit(10000000000000000000000000000000000000000000000000000000000000000.00);
+		
+		creditCardProcessingController.addCreditCard(creditCard1);	
+	}
 
 }
