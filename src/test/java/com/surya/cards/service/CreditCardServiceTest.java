@@ -47,8 +47,8 @@ public class CreditCardServiceTest {
 		creditCard3.setUpperLimit(120000.00);
 		
 		creditCardList.add(creditCard1);
-		creditCardList.add(creditCard1);
-		creditCardList.add(creditCard1);
+		creditCardList.add(creditCard2);
+		creditCardList.add(creditCard3);
 
 		when(creditCardRepository.findAll()).thenReturn(creditCardList);
 
