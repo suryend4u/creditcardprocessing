@@ -38,9 +38,6 @@ public class CreditCardProcessingControllerEndpointTest {
 	@MockBean
 	CreditCardService creditCardService;
 
-	@Value("${app.cardsave.successful}")
-	private String cardsavedMsg;
-
 	@Test
 	public void getAllCardsAPI() throws Exception {
 		List<CreditCard> creditCardList = new ArrayList<>();
